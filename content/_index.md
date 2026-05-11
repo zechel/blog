@@ -10,7 +10,7 @@ toc: false
 Publicado quando faz sentido.
 
 {{< cards >}}
-  {{< card link="/posts" title="Posts" subtitle="Tudo que já saiu por aqui." >}}
-  {{< card link="/sobre" title="Sobre" subtitle="Quem é José Zechel, o que faz, no que acredita." >}}
-  {{< card link="/arquivo" title="Arquivo" subtitle="Lista cronológica completa." >}}
+  {{< card link="posts" title="Posts" subtitle="Tudo que já saiu por aqui." >}}
+  {{< card link="sobre" title="Sobre" subtitle="Quem é José Zechel, o que faz, no que acredita." >}}
+  {{< card link="arquivo" title="Arquivo" subtitle="Lista cronológica completa." >}}
 {{< /cards >}}
