@@ -1,0 +1,132 @@
+# ─────────────────────────────────────────────────────────────
+# José Zechel — Blog pessoal
+# Configuração principal do Hugo + Hextra
+# ─────────────────────────────────────────────────────────────
+
+baseURL: "https://josezechel.com/"
+locale: "pt-BR"
+title: "José Zechel"
+
+# ── Tema via Hugo Modules
+module:
+  hugoVersion:
+    extended: true
+    min: "0.146.0"
+  imports:
+    - path: github.com/imfing/hextra
+
+# ── Configuração de markdown
+enableEmoji: true
+enableGitInfo: true
+hasCJKLanguage: false
+
+# ── Defaults de markup
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    noClasses: false
+    style: github-dark
+
+# ── Idioma
+defaultContentLanguage: pt-br
+languages:
+  pt-br:
+    label: "Português"
+    locale: "pt-BR"
+    weight: 1
+
+# ── Menu de navegação
+menu:
+  main:
+    - identifier: posts
+      name: posts
+      pageRef: /posts
+      weight: 1
+    - identifier: sobre
+      name: sobre
+      pageRef: /sobre
+      weight: 2
+    - identifier: arquivo
+      name: arquivo
+      pageRef: /arquivo
+      weight: 3
+    - identifier: rss
+      name: rss
+      url: "/index.xml"
+      weight: 4
+      params:
+        icon: rss
+    - identifier: search
+      name: buscar
+      weight: 5
+      params:
+        type: search
+    - identifier: github
+      name: github
+      url: "https://github.com/zechel"
+      weight: 10
+      params:
+        icon: github
+
+# ── Parâmetros do tema Hextra
+params:
+  description: "Ensaios sobre IA, automação e infraestrutura para quem constrói com tecnologia no Brasil — por José Zechel."
+
+  navbar:
+    displayTitle: true
+    displayLogo: false
+    width: normal
+
+  theme:
+    default: system
+    displayToggle: true
+
+  footer:
+    enable: true
+    displayCopyright: true
+    displayPoweredBy: true   # texto traduzido via i18n/pt-br.yaml: poweredBy + copyright
+
+  font:
+    serif: "Lora"
+    sans: "Geist"
+    mono: "Geist Mono"
+
+  comments:
+    enable: true
+    type: giscus
+    giscus:
+      repo: "zechel/josezechel-blog"
+      repoId: "PREENCHER_DEPOIS"
+      category: "Comments"
+      categoryId: "PREENCHER_DEPOIS"
+      mapping: "pathname"
+      strict: 0
+      reactionsEnabled: 1
+      emitMetadata: 0
+      inputPosition: "bottom"
+      lightTheme: "light"
+      darkTheme: "dark_dimmed"
+      lang: "pt"
+      loading: "lazy"
+
+  seo:
+    enable: true
+
+  editURL:
+    enable: false
+
+  toc:
+    displayTags: true
+    displayUpdatedDate: true
+
+  search:
+    enable: true
+    type: flexsearch
+    flexsearch:
+      index: content
+      tokenize: forward
+
+  customCSS:
+    - css/custom.css

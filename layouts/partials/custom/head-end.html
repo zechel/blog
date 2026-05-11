@@ -1,0 +1,14 @@
+{{/* Google Fonts: Lora + Geist Mono */}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Geist+Mono:wght@400;500&display=swap">
+
+{{/* CSS customizado (assets/css/custom.css) */}}
+{{ with resources.Get "css/custom.css" }}
+  {{ $css := . | resources.Minify | resources.Fingerprint "sha256" }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
+{{ end }}
+
+{{/* Theme color para mobile (status bar) */}}
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme: dark)">

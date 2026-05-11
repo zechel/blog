@@ -1,0 +1,45 @@
+# ─────────────────────────────────────────────────────────────
+# josezechel-blog — repositório do blog pessoal
+# Este diretório também hospeda o framework AIOX (uso local).
+# Tudo do AIOX/IDEs fica fora do git do blog.
+# ─────────────────────────────────────────────────────────────
+
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+
+# Dependencies
+node_modules/
+
+# Build & Logs
+dist/
+build/
+*.log
+logs/
+
+# IDE & OS
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
+.vscode/
+
+# Hugo build artifacts
+public/
+resources/
+.hugo_build.lock
+
+# AIOX framework (local-only; não publicar no repo do blog)
+.aiox/
+.aiox-core/
+.antigravity/
+.codex/
+.cursor/
+.gemini/
+.claude/
+AGENTS.md
+blog-poc.html
+CONTEXTO-CLAUDE-CODE.md

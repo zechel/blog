@@ -1,0 +1,137 @@
+/* ─────────────────────────────────────────────────────────────
+   José Zechel — Customização do tema Hextra
+   Design: minimalismo radical + Lora serif + Meta blue accent
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Tokens (light mode) ───────────────────────────────────── */
+:root {
+  --hextra-bg:        #ffffff;
+  --hextra-bg-subtle: #fafafa;
+  --hextra-text:      #111111;
+  --hextra-text-2:    #555555;
+  --hextra-text-3:    #999999;
+  --hextra-border:    #e5e5e5;
+  --hextra-accent:    #0082fb;
+  --hextra-accent-h:  #0064e0;
+
+  --font-serif: 'Lora', Georgia, serif;
+  --font-mono:  'Geist Mono', 'Courier New', monospace;
+  --max-w:      680px;
+}
+
+/* ── Tokens (dark mode) ────────────────────────────────────── */
+.dark, html.dark, [data-theme='dark'] {
+  --hextra-bg:        #0f0f0f;
+  --hextra-bg-subtle: #161616;
+  --hextra-text:      #eeeeee;
+  --hextra-text-2:    #aaaaaa;
+  --hextra-text-3:    #555555;
+  --hextra-border:    #2a2a2a;
+  --hextra-accent:    #3d9eff;
+  --hextra-accent-h:  #0082fb;
+}
+
+/* ── Body ──────────────────────────────────────────────────── */
+body {
+  background: var(--hextra-bg);
+  color: var(--hextra-text);
+  font-family: var(--font-serif);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Logo da nav em mono ──────────────────────────────────── */
+.hextra-nav-container .nav-logo,
+.hextra-nav-container [class*='title'] {
+  font-family: var(--font-mono) !important;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+}
+
+/* ── Links da nav em mono ─────────────────────────────────── */
+.hextra-nav-container a[class*='link'] {
+  font-family: var(--font-mono) !important;
+  font-size: 12px !important;
+  letter-spacing: 0.02em;
+  color: var(--hextra-text-2);
+}
+
+/* ── Headings em Lora ─────────────────────────────────────── */
+article h1, article h2, article h3,
+.hextra-content h1, .hextra-content h2, .hextra-content h3 {
+  font-family: var(--font-serif) !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.02em;
+}
+
+article h1, .hextra-content h1 {
+  font-size: 30px !important;
+  line-height: 1.2;
+}
+
+/* ── Body de artigos ──────────────────────────────────────── */
+article p, .hextra-content p {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 1.78;
+  letter-spacing: -0.01em;
+}
+
+/* ── Meta / datas / tags em mono ──────────────────────────── */
+.post-meta, .post-date, .post-tags,
+time, [class*='meta'] {
+  font-family: var(--font-mono) !important;
+  font-size: 12px !important;
+  color: var(--hextra-text-3);
+  letter-spacing: 0.02em;
+}
+
+/* ── Accent (links, tags) ─────────────────────────────────── */
+a, .accent {
+  color: var(--hextra-accent);
+}
+a:hover {
+  color: var(--hextra-accent-h);
+}
+
+/* ── Blockquote ───────────────────────────────────────────── */
+article blockquote, .hextra-content blockquote {
+  border-left: 2px solid var(--hextra-accent);
+  padding-left: 20px;
+  margin: 32px 0;
+  font-style: italic;
+  color: var(--hextra-text-2);
+}
+
+/* ── Container máximo ─────────────────────────────────────── */
+.hextra-content,
+article.content {
+  max-width: var(--max-w) !important;
+  margin: 0 auto;
+}
+
+/* ── Esconder elementos que não queremos ──────────────────── */
+.hextra-footer-poweredby,
+[class*='powered'] {
+  display: none !important;
+}
+
+/* ── Animação de entrada ──────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+article, .post-item {
+  animation: fadeIn .3s ease both;
+}
+
+/* ── Tags em mono azul ────────────────────────────────────── */
+.post-tag, [class*='tag'] {
+  font-family: var(--font-mono) !important;
+  font-size: 11px;
+  color: var(--hextra-accent);
+  text-transform: lowercase;
+  letter-spacing: 0.04em;
+}
