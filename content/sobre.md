@@ -4,8 +4,6 @@ description: DBA e Engenheiro de Dados desde 2008, Founder da Brasys Technology,
 toc: false
 ---
 
-# Sobre
-
 ## Quem sou
 
 Meu nome é Zechel. Trabalho com dados desde 2008, moro em Campinas, no interior de São Paulo. Sou pai, marido, filho e irmão — e essa ordem importa.
