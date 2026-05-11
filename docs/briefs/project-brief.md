@@ -4,12 +4,12 @@
 |---|---|
 | **From** | @architect (Aria) |
 | **To** | @pm (Morgan) |
-| **Purpose** | Input for the formal PRD — please consume this brief, elicit any gaps with the owner, and produce `docs/prd/josezechel-prd.md`. |
+| **Purpose** | Input for the formal PRD — please consume this brief, elicit any gaps with the owner, and produce `docs/prd/blog-prd.md`. |
 | **Project** | josezechel.com (personal blog) |
 | **Owner** | José Zechel |
 | **Date** | 2026-05-11 |
 | **Status** | Ready for PM elaboration |
-| **Companion doc** | `docs/architecture/josezechel-architecture.md` (already drafted) |
+| **Companion doc** | `docs/architecture/blog-architecture.md` (already drafted) |
 
 ---
 
@@ -140,9 +140,9 @@ Suggested for PM to refine and prioritize:
 ## 11. Handoff Notes & Next Steps
 
 **For @pm (Morgan):**
-1. Read the companion Architecture Doc (`docs/architecture/josezechel-architecture.md`) so the PRD doesn't contradict the build.
+1. Read the companion Architecture Doc (`docs/architecture/blog-architecture.md`) so the PRD doesn't contradict the build.
 2. Run `*gather-requirements` with José using this brief as the starting input — focus on the Open Questions in §10.
-3. Produce `docs/prd/josezechel-prd.md` using `prd-tmpl.yaml`.
+3. Produce `docs/prd/blog-prd.md` using `prd-tmpl.yaml`.
 4. After PRD is approved, hand off to @po for story breakdown.
 
 **For the owner (José):**

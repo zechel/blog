@@ -6,7 +6,7 @@
 | **Owner** | José Zechel |
 | **Author** | @pm (Morgan) |
 | **Status** | Draft v0.1 — Section 1 of 8 |
-| **Source inputs** | `docs/briefs/project-brief.md`, `docs/architecture/josezechel-architecture.md` |
+| **Source inputs** | `docs/briefs/project-brief.md`, `docs/architecture/blog-architecture.md` |
 | **Last updated** | 2026-05-11 |
 
 ---
