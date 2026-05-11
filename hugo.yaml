@@ -103,7 +103,7 @@ params:
     enable: true
     type: giscus
     giscus:
-      repo: "zechel/josezechel-blog"
+      repo: "zechel/blog"
       repoId: "PREENCHER_DEPOIS"
       category: "Comments"
       categoryId: "PREENCHER_DEPOIS"

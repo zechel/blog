@@ -49,7 +49,7 @@ The system is intentionally low-operations: no runtime backend, no database, no 
                                 │ git push
                                 ▼
               ┌─────────────────────────────────────────┐
-              │   GitHub repo: zechel/josezechel-blog   │
+              │   GitHub repo: zechel/blog              │
               │   ─ content/posts/*.md  (source)        │
               │   ─ hugo.yaml           (config)        │
               │   ─ layouts/*           (overrides)     │
@@ -199,7 +199,7 @@ Files under `layouts/` that override Hextra defaults:
 4. Subsequent visits hydrate from the existing Discussion.
 
 **Configuration** (in `hugo.yaml` → `params.comments.giscus`):
-- `repo: zechel/josezechel-blog`
+- `repo: zechel/blog`
 - `repoId: PREENCHER_DEPOIS` — **manual step**, retrieved from `giscus.app` configurator after enabling Discussions.
 - `category: Comments` (created manually with type "Announcements" recommended).
 - `categoryId: PREENCHER_DEPOIS` — same source as repoId.
@@ -279,10 +279,10 @@ The site is currently **monolingual pt-BR**. The infrastructure is multilingual-
 
 ### 13.1 Initial bring-up (manual steps remaining)
 
-1. **GitHub repo + first push** — `gh auth login` → `gh repo create zechel/josezechel-blog --public --source=. --remote=origin` → commit + push.
+1. **GitHub repo + first push** — `gh auth login` → `gh repo create zechel/blog --public --source=. --remote=origin` → commit + push.
 2. **Enable Pages** — Settings → Pages → Source: **GitHub Actions**.
 3. **Enable Discussions** — Settings → Features → check "Discussions". Create a category named **Comments** (type: Announcements recommended).
-4. **Install Giscus app** — visit `github.com/apps/giscus` → install on `zechel/josezechel-blog`.
+4. **Install Giscus app** — visit `github.com/apps/giscus` → install on `zechel/blog`.
 5. **Configure Giscus** — visit `giscus.app`, fill the repo, copy `data-repo-id` and `data-category-id`, paste into `hugo.yaml` replacing both `PREENCHER_DEPOIS` placeholders.
 6. **DNS** — at the registrar for `josezechel.com`:
    - `A @ 185.199.108.153`
