@@ -1,5 +1,5 @@
 ---
-title: "José Zechel"
+title: "Zechel Notes"
 toc: false
 ---
 

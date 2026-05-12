@@ -5,7 +5,7 @@
 
 baseURL: "https://zechel.com.br/"
 locale: "pt-BR"
-title: "José Zechel"
+title: "Zechel Notes"
 
 # ── Tema via Hugo Modules
 module:
