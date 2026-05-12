@@ -3,7 +3,7 @@
 # Configuração principal do Hugo + Hextra
 # ─────────────────────────────────────────────────────────────
 
-baseURL: "https://josezechel.com/"
+baseURL: "https://zechel.com.br/"
 locale: "pt-BR"
 title: "José Zechel"
 
