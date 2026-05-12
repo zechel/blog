@@ -104,9 +104,9 @@ params:
     type: giscus
     giscus:
       repo: "zechel/blog"
-      repoId: "PREENCHER_DEPOIS"
+      repoId: "R_kgDOSaRcAQ"
       category: "Comments"
-      categoryId: "PREENCHER_DEPOIS"
+      categoryId: "DIC_kwDOSaRcAc4C83hI"
       mapping: "pathname"
       strict: 0
       reactionsEnabled: 1
