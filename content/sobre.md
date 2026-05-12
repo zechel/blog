@@ -1,7 +1,7 @@
 ---
 title: Sobre
-description: DBA e Engenheiro de Dados desde 2008, Founder da Brasys Technology, trabalhando com PostgreSQL, Engenharia de Dados, BI & Analytics, Governança de Dados e Agentic Engineering para PMEs no Brasil e no exterior.
-toc: false
+layout: redirect
+redirect_to: "https://josezechel.com.br"
 ---
 
 ## Quem sou
