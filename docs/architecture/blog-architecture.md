@@ -127,7 +127,7 @@ content/
 ├── posts/
 │   ├── _index.md         # Section index; cascade.type: blog → triggers
 │   │                       layouts/blog/single.html for every post
-│   └── ola-mundo.md      # First post (and template for future posts)
+│   └── postgres-dba-fork.md  # Example post (front matter template for future posts)
 ├── sobre.md              # About page
 └── arquivo/
     └── _index.md         # Archive index (all posts grouped by year)
