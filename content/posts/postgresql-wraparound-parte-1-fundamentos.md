@@ -12,7 +12,7 @@ draft: false
 
 > **Parte 1 de 4 — Fundamentos, XIDs, congelamento, Visibility Map e MultiXact**
 >
-> **Navegação da série:** **Parte 1** · Parte 2 (em breve) · Parte 3 (em breve) · Parte 4 (em breve)
+> **Navegação da série:** **Parte 1** · [Parte 2](/posts/postgresql-wraparound-parte-2-parametros-monitoramento/) · [Parte 3](/posts/postgresql-wraparound-parte-3-laboratorio-incidentes/) · [Parte 4](/posts/postgresql-wraparound-parte-4-runbook-evolucao/)
 
 > ### Antes de começar
 >
@@ -28,9 +28,9 @@ draft: false
 >
 > O objetivo é que este material sirva tanto para quem está conhecendo o assunto quanto para quem precisa tomar uma decisão técnica com um cluster em produção.
 
-> **Escopo desta revisão:** os procedimentos operacionais foram validados para as versões atualmente suportadas do PostgreSQL, da 14 à 18, com ênfase no PostgreSQL 18. Diferenças históricas de versões anteriores aparecem apenas para contextualização, e o PostgreSQL 19 é tratado somente na seção 18, com marcação explícita de conteúdo beta. Sempre confirme a versão exata do servidor antes de executar um runbook.
+> **Escopo desta revisão:** os procedimentos operacionais foram validados para as versões atualmente suportadas do PostgreSQL, da 14 à 18, com ênfase no PostgreSQL 18. Diferenças históricas de versões anteriores aparecem apenas para contextualização, e o PostgreSQL 19 é tratado somente na [seção 18](/posts/postgresql-wraparound-parte-4-runbook-evolucao/#18-o-que-mudou-em-cada-versão), com marcação explícita de conteúdo beta. Sempre confirme a versão exata do servidor antes de executar um runbook.
 >
-> **Diferença importante entre versões:** as mensagens de aviso e de erro relacionadas a wraparound foram reescritas no ciclo do PostgreSQL 17 e a mudança não foi retroportada. Em PostgreSQL 14, 15 e 16 o servidor ainda recomenda modo mono-usuário. Essa recomendação é obsoleta; veja a seção 13, Fase 5.
+> **Diferença importante entre versões:** as mensagens de aviso e de erro relacionadas a wraparound foram reescritas no ciclo do PostgreSQL 17 e a mudança não foi retroportada. Em PostgreSQL 14, 15 e 16 o servidor ainda recomenda modo mono-usuário. Essa recomendação é obsoleta; veja a [seção 13, Fase 5](/posts/postgresql-wraparound-parte-3-laboratorio-incidentes/#fase-5--bloqueio-de-novas-atribuições).
 >
 > **Critério de fontes:** a documentação oficial e as notas de versão do PostgreSQL são normativas para comportamento, configuração e recuperação. O InterDB é utilizado como apoio conceitual e histórico, não como substituto da documentação da versão instalada.
 
@@ -38,9 +38,9 @@ draft: false
 
 > ### 🚨 Está em incidente agora?
 >
-> Se o seu banco já recusa escritas com `database is not accepting commands...`, vá direto para a **seção 16 — Runbook de emergência**.
+> Se o seu banco já recusa escritas com `database is not accepting commands...`, vá direto para a **[seção 16 — Runbook de emergência](/posts/postgresql-wraparound-parte-4-runbook-evolucao/#16-runbook-de-emergência)**.
 >
-> Três coisas para não fazer antes de chegar lá: **não reinicie o servidor**, **não entre em modo mono-usuário** e **não execute `VACUUM FULL`**. Se o log sugerir single-user mode, essa mensagem é histórica — veja a seção 13, Fase 5.
+> Três coisas para não fazer antes de chegar lá: **não reinicie o servidor**, **não entre em modo mono-usuário** e **não execute `VACUUM FULL`**. Se o log sugerir single-user mode, essa mensagem é histórica — veja a [seção 13, Fase 5](/posts/postgresql-wraparound-parte-3-laboratorio-incidentes/#fase-5--bloqueio-de-novas-atribuições).
 
 ---
 
@@ -54,18 +54,18 @@ draft: false
 6. [A contabilidade: relfrozenxid, datfrozenxid e age()](#6-a-contabilidade-relfrozenxid-datfrozenxid-e-age)
 7. [Visibility Map: onde está a maior parte da eficiência](#7-visibility-map-onde-está-a-maior-parte-da-eficiência)
 8. [MultiXact: o contador paralelo](#8-multixact-o-contador-paralelo)
-9. Parâmetros e limites efetivos
-10. O que limita o VACUUM: horizontes e retenções
-11. Monitoramento e planejamento de capacidade
-12. Laboratório reproduzível
-13. Anatomia de um incidente
-14. Anti-padrões
-15. Otimizações e melhorias
-16. Runbook de emergência
-17. O fantasma do PostgreSQL 9.5
-18. O que mudou em cada versão
-19. Checklist operacional
-20. Referências
+9. [Parâmetros e limites efetivos](/posts/postgresql-wraparound-parte-2-parametros-monitoramento/#9-parâmetros-e-limites-efetivos)
+10. [O que limita o VACUUM: horizontes e retenções](/posts/postgresql-wraparound-parte-2-parametros-monitoramento/#10-o-que-limita-o-vacuum-horizontes-e-retenções)
+11. [Monitoramento e planejamento de capacidade](/posts/postgresql-wraparound-parte-2-parametros-monitoramento/#11-monitoramento-e-planejamento-de-capacidade)
+12. [Laboratório reproduzível](/posts/postgresql-wraparound-parte-3-laboratorio-incidentes/#12-laboratório-reproduzível)
+13. [Anatomia de um incidente](/posts/postgresql-wraparound-parte-3-laboratorio-incidentes/#13-anatomia-de-um-incidente)
+14. [Anti-padrões](/posts/postgresql-wraparound-parte-3-laboratorio-incidentes/#14-anti-padrões)
+15. [Otimizações e melhorias](/posts/postgresql-wraparound-parte-4-runbook-evolucao/#15-otimizações-e-melhorias)
+16. [Runbook de emergência](/posts/postgresql-wraparound-parte-4-runbook-evolucao/#16-runbook-de-emergência)
+17. [O fantasma do PostgreSQL 9.5](/posts/postgresql-wraparound-parte-4-runbook-evolucao/#17-o-fantasma-do-postgresql-95)
+18. [O que mudou em cada versão](/posts/postgresql-wraparound-parte-4-runbook-evolucao/#18-o-que-mudou-em-cada-versão)
+19. [Checklist operacional](/posts/postgresql-wraparound-parte-4-runbook-evolucao/#19-checklist-operacional)
+20. [Referências](/posts/postgresql-wraparound-parte-4-runbook-evolucao/#20-referências)
 
 ---
 
@@ -79,7 +79,7 @@ O *transaction ID wraparound* pertence a uma classe de risco operacional que com
 
 O PostgreSQL contém salvaguardas para impedir que versões antigas de linhas se tornem invisíveis depois da volta do contador. Se a manutenção preventiva não consegue avançar os marcos de congelamento, o servidor passa a recusar operações que precisem atribuir novos XIDs antes que ocorra perda lógica de visibilidade.
 
-Nas versões suportadas do PostgreSQL, isso **não significa automaticamente parar o servidor ou entrar em modo mono-usuário**. Mesmo quando novas escritas são recusadas, um `VACUUM` normal ainda pode ser executado. A recuperação correta começa por remover os bloqueadores do horizonte e executar o menor trabalho necessário para avançar os marcos. O procedimento completo está na seção 16.
+Nas versões suportadas do PostgreSQL, isso **não significa automaticamente parar o servidor ou entrar em modo mono-usuário**. Mesmo quando novas escritas são recusadas, um `VACUUM` normal ainda pode ser executado. A recuperação correta começa por remover os bloqueadores do horizonte e executar o menor trabalho necessário para avançar os marcos. O procedimento completo está na [seção 16](/posts/postgresql-wraparound-parte-4-runbook-evolucao/#16-runbook-de-emergência).
 
 A boa notícia é que o risco é mensurável e evitável. O problema costuma surgir menos por falta de mecanismo no PostgreSQL e mais por ausência de monitoramento, configuração incompatível com a carga ou retenções que impedem o `VACUUM` de progredir.
 
@@ -95,7 +95,7 @@ Os blocos marcados como **essenciais para operação** são úteis para qualquer
 
 Boa parte da reputação do wraparound foi formada em versões nas quais um vacuum agressivo precisava reler muito mais páginas e havia menos ferramentas para acompanhar o progresso. O PostgreSQL 9.6 adicionou o bit `all_frozen` ao Visibility Map e `pg_stat_progress_vacuum`; versões posteriores acrescentaram controle de índices, failsafe, melhorias de freeze e, no PostgreSQL 18, *eager freezing*.
 
-A matemática de 32 bits não desapareceu. O que mudou foi a capacidade de amortizar, observar e controlar o trabalho. A seção 17 mostra essa evolução sem transformar melhorias modernas em promessa de risco zero.
+A matemática de 32 bits não desapareceu. O que mudou foi a capacidade de amortizar, observar e controlar o trabalho. A [seção 17](/posts/postgresql-wraparound-parte-4-runbook-evolucao/#17-o-fantasma-do-postgresql-95) mostra essa evolução sem transformar melhorias modernas em promessa de risco zero.
 
 ---
 
@@ -282,7 +282,7 @@ Sem proteção, a linha poderia parecer desaparecer logicamente, embora os bytes
 4. warnings quando a margem se aproxima de aproximadamente 40 milhões de XIDs;
 5. recusa de novas atribuições de XID quando restam menos de aproximadamente 3 milhões até o ponto crítico.
 
-Os valores de 40 milhões e 3 milhões valem para as versões 14 a 18. O PostgreSQL 19, ainda em beta, eleva o limiar de aviso para aproximadamente 100 milhões; veja a seção 18.
+Os valores de 40 milhões e 3 milhões valem para as versões 14 a 18. O PostgreSQL 19, ainda em beta, eleva o limiar de aviso para aproximadamente 100 milhões; veja a [seção 18](/posts/postgresql-wraparound-parte-4-runbook-evolucao/#o-que-vem-no-postgresql-19).
 
 Quando a proteção final é acionada, transações já em andamento podem continuar e novas transações somente leitura ainda podem ser iniciadas. Operações que precisam modificar registros ou atribuir XIDs falham. Isso preserva a integridade lógica, mas pode representar indisponibilidade funcional para a aplicação.
 
@@ -453,7 +453,7 @@ ORDER BY pg_relation_size(c.oid) DESC
 LIMIT 30;
 ```
 
-> **Privilégios.** As funções de inspeção de `pg_visibility` podem ser executadas por superusuários e por membros do papel predefinido `pg_stat_scan_tables`; o papel `pg_monitor` herda esse privilégio. A função `pg_truncate_visibility_map()` é a exceção e permanece restrita a superusuário, porque altera o Visibility Map. Em serviços gerenciados, a disponibilidade da extensão e a possibilidade de conceder esses papéis dependem do provedor. Se essa telemetria não estiver disponível, use a variante sem Visibility Map da consulta de ranking; você perde a estimativa de trabalho pendente, não o acompanhamento de idade.
+> **Privilégios.** As funções de inspeção de `pg_visibility` podem ser executadas por superusuários e por membros do papel predefinido `pg_stat_scan_tables`; o papel `pg_monitor` herda esse privilégio. A função `pg_truncate_visibility_map()` é a exceção e permanece restrita a superusuário, porque altera o Visibility Map. Em serviços gerenciados, a disponibilidade da extensão e a possibilidade de conceder esses papéis dependem do provedor. Se essa telemetria não estiver disponível, use a [variante sem Visibility Map](/posts/postgresql-wraparound-parte-2-parametros-monitoramento/#ranking-de-relações) da consulta de ranking; você perde a estimativa de trabalho pendente, não o acompanhamento de idade.
 
 Uma relação estática com 100% das páginas `all_frozen` tende a impor muito pouco I/O de heap ao próximo vacuum agressivo. Ainda existem custos de abertura da relação, locks, leitura do VM, atualização de metadados e processamento separado da TOAST. Portanto, “quase nenhum I/O de heap” é mais preciso que “custo zero”.
 
@@ -500,7 +500,7 @@ ORDER BY greatest(age(datfrozenxid), mxid_age(datminmxid)) DESC;
 
 Cargas com muitos locks de linha compartilhados, validações de chaves estrangeiras, filas concorrentes ou sistemas de reserva podem consumir MultiXacts mais rapidamente que cargas OLTP simples. Não assuma que o XID sempre será o primeiro limite.
 
-> **Olhando para frente.** No PostgreSQL 19, o espaço de armazenamento dos membros de MultiXact passa a 64 bits e deixa de esgotar. Isso **não** vale para as versões 14 a 18 descritas nesta seção, e mesmo na 19 o `MultiXactId` continua sendo um contador de 32 bits que exige congelamento. Detalhes na seção 18.
+> **Olhando para frente.** No PostgreSQL 19, o espaço de armazenamento dos membros de MultiXact passa a 64 bits e deixa de esgotar. Isso **não** vale para as versões 14 a 18 descritas nesta seção, e mesmo na 19 o `MultiXactId` continua sendo um contador de 32 bits que exige congelamento. Detalhes na [seção 18](/posts/postgresql-wraparound-parte-4-runbook-evolucao/#o-que-vem-no-postgresql-19).
 
 ---
 

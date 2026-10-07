@@ -12,7 +12,7 @@ draft: false
 
 > **Parâmetros, horizontes, retenções e monitoramento**
 >
-> **Navegação da série:** [Parte 1](/posts/postgresql-wraparound-parte-1-fundamentos/) · **Parte 2** · Parte 3 (em breve) · Parte 4 (em breve)
+> **Navegação da série:** [Parte 1](/posts/postgresql-wraparound-parte-1-fundamentos/) · **Parte 2** · [Parte 3](/posts/postgresql-wraparound-parte-3-laboratorio-incidentes/) · [Parte 4](/posts/postgresql-wraparound-parte-4-runbook-evolucao/)
 
 ---
 

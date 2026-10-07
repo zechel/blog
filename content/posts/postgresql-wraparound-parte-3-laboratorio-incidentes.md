@@ -12,7 +12,7 @@ draft: false
 
 > **Laboratório, anatomia de incidentes e anti-padrões**
 >
-> **Navegação da série:** [Parte 1](/posts/postgresql-wraparound-parte-1-fundamentos/) · [Parte 2](/posts/postgresql-wraparound-parte-2-parametros-monitoramento/) · **Parte 3** · Parte 4 (em breve)
+> **Navegação da série:** [Parte 1](/posts/postgresql-wraparound-parte-1-fundamentos/) · [Parte 2](/posts/postgresql-wraparound-parte-2-parametros-monitoramento/) · **Parte 3** · [Parte 4](/posts/postgresql-wraparound-parte-4-runbook-evolucao/)
 
 ---
 
@@ -644,7 +644,7 @@ HINT:  Execute a database-wide VACUUM in that database.
 >
 > **Esse hint é histórico e não deve ser seguido.** Ele data de uma época em que o `VACUUM` consumia um XID e realmente não podia ser executado nessa condição. Isso deixou de ser verdade com o mecanismo de *Lazy XID* introduzido no PostgreSQL 8.3 — implementado em 2007 e lançado em 4 de fevereiro de 2008 —, mas a mensagem só foi corrigida no ciclo da versão 17, sem retroporte para as versões anteriores.
 >
-> Em qualquer versão suportada hoje, o `VACUUM` roda normalmente com o servidor no ar. Parar o postmaster para entrar em modo mono-usuário desliga salvaguardas importantes e deixa a aplicação totalmente fora do ar em vez de somente leitura. Isso não é necessário para que o `VACUUM` execute e não oferece benefício operacional que justifique o risco e a indisponibilidade no procedimento padrão. A seção 16 descreve o procedimento correto.
+> Em qualquer versão suportada hoje, o `VACUUM` roda normalmente com o servidor no ar. Parar o postmaster para entrar em modo mono-usuário desliga salvaguardas importantes e deixa a aplicação totalmente fora do ar em vez de somente leitura. Isso não é necessário para que o `VACUUM` execute e não oferece benefício operacional que justifique o risco e a indisponibilidade no procedimento padrão. A [seção 16](/posts/postgresql-wraparound-parte-4-runbook-evolucao/#16-runbook-de-emergência) descreve o procedimento correto.
 
 Nessa condição:
 
